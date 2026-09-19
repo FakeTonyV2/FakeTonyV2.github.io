@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import WorkList from '../components/WorkList.astro';
+import WritingList from '../components/WritingList.astro';
+import { getSiteContent } from '../lib/content';
+import { site, formatDate } from '../config/site';
+const { work, writing } = await getSiteContent();
+const [givenName, ...familyName] = site.name.split(' ');
+---
+<Base>
+  <header class="home-intro">
+    <p class="eyebrow"><span class="tiny-cross" aria-hidden="true">+</span> Systems, software & other curiosities</p>
+    <h1>{givenName}<br /><em>{familyName.join(' ')}.</em></h1>
+    <div class="intro-copy">
+      <p>I'm {site.shortName}, a Computer Science undergraduate at Purdue. I’m interested in systems, ML infrastructure, and the software that sits between algorithms and hardware.</p>
+      <p>I like building software that makes other people more capable.</p>
+    </div>
+    <a class="text-link" href="/about/">A little more about me <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <section class="interests-section" aria-labelledby="interests-heading">
+    <h2 class="eyebrow" id="interests-heading">On my mind</h2>
+    <p>Systems performance <span aria-hidden="true">/</span> ML infrastructure <span aria-hidden="true">/</span> Computer architecture <span aria-hidden="true">/</span> Heterogeneous compute</p>
+  </section>
+
+  <section class="home-section" aria-labelledby="work-heading">
+    <div class="section-heading"><h2 id="work-heading">Selected work</h2><a class="small-link" href="/work/">All work <span aria-hidden="true">↗</span></a></div>
+    <WorkList entries={work.filter((entry) => entry.data.featured)} />
+  </section>
+
+  <section class="home-section writing-section" aria-labelledby="writing-heading">
+    <div class="section-heading"><h2 id="writing-heading">Writing</h2><a class="small-link" href="/writing/">All writing <span aria-hidden="true">↗</span></a></div>
+    <WritingList entries={writing.slice(0, 3)} />
+  </section>
+
+  <section class="home-section currently-section" aria-labelledby="currently-heading">
+    <div class="section-heading"><h2 id="currently-heading">Currently</h2><a class="small-link" href="/now/">The now page <span aria-hidden="true">↗</span></a></div>
+    <p>Leading <a href="/work/heterogeneous-llm-inference/">Heterogeneous LLM Inference</a> at ML@Purdue, building computer-vision infrastructure with <a href="/work/purdue-rov-cv-runtime/">Purdue ROV</a>, and finding my way through Rust and Zig.</p>
+    <p class="muted">Off-screen: Roman history, science fiction, and occasionally convincing myself I’ve retired from competitive games.</p>
+    <p class="meta updated">Last updated <time datetime={site.updated}>{formatDate(site.updated)}</time></p>
+  </section>
+
+  <section class="contact-section" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Good conversations welcome.</h2>
+    <p>I like meeting people who know a lot about something I know almost nothing about.</p>
+    <a class="text-link" href={`mailto:${site.email}`}>Say hello <span aria-hidden="true">↗</span></a>
+  </section>
+</Base>

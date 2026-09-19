@@ -1,0 +1,10 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { relatedContent } from '../lib/content';
+interface Props { entry: CollectionEntry<'work'> | CollectionEntry<'writing'>; }
+const items = await relatedContent(Astro.props.entry);
+---
+{items.length > 0 && <aside class="related" aria-labelledby="related-heading">
+  <h2 id="related-heading">Related</h2>
+  <ul>{items.map((item) => <li><a href={item.href}>{item.title}</a><span class="meta">{item.kind}</span></li>)}</ul>
+</aside>}

@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import WritingList from '../../components/WritingList.astro';
+import { getSiteContent } from '../../lib/content';
+const { writing } = await getSiteContent();
+---
+<Base title="Writing" description="Notes on systems, engineering decisions, experiments, and the things that break while building them.">
+  <PageHeader title="Writing" eyebrow="Notes from the workbench" />
+  <WritingList entries={writing} headingLevel="h2" />
+</Base>

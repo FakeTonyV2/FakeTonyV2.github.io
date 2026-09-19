@@ -1,0 +1,12 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+const entry = await getEntry('pages', 'reading');
+if (!entry) throw new Error('Missing reading content.');
+const { Content } = await render(entry);
+---
+<Base title="Reading" description={entry.data.description}>
+  <PageHeader title={entry.data.title} eyebrow="On the bookshelf" description="Technical books, old ideas, and things that send me down a rabbit hole." />
+  <div class="prose reading-content"><Content /></div>
+</Base>

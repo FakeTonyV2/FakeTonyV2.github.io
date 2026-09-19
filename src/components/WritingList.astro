@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, site } from '../config/site';
+import { readingTime } from '../lib/content';
+interface Props { entries: CollectionEntry<'writing'>[]; headingLevel?: 'h2' | 'h3'; }
+const { entries, headingLevel: Heading = 'h3' } = Astro.props;
+---
+{entries.length ? <ul class="writing-list">
+  {entries.map((entry) => <li>
+    <p class="meta"><time datetime={entry.data.published!.toISOString()}>{formatDate(entry.data.published!)}</time> · {readingTime(entry.body)} min read</p>
+    <Heading><a href={`/writing/${entry.id}/`}>{entry.data.title}</a></Heading>
+    <p>{entry.data.description}</p>
+  </li>)}
+</ul> : <p class="empty-state">{site.writingEmpty}</p>}

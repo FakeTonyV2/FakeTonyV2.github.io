@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { entries: CollectionEntry<'work'>[]; headingLevel?: 'h2' | 'h3'; }
+const { entries, headingLevel: Heading = 'h3' } = Astro.props;
+---
+<ul class="work-list">
+  {entries.map((entry) => <li>
+    <a class="work-link" href={`/work/${entry.id}/`}>
+      <div class="work-title-row"><Heading>{entry.data.title}</Heading><span class="arrow" aria-hidden="true">↗</span></div>
+      <p>{entry.data.summary}</p>
+      <span class="meta work-status">{entry.data.status}</span>
+    </a>
+  </li>)}
+</ul>
