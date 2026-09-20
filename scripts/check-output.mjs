@@ -62,7 +62,7 @@ for (const node of index('loc').toArray()) {
   const xml = load(await readFile(resolve(root, '.' + sitemap.pathname), 'utf8'), { xmlMode: true });
   locations.push(...xml('loc').toArray().map((loc) => xml(loc).text()));
 }
-for (const route of ['/', '/work/', '/writing/', '/now/', '/about/', '/reading/']) {
+for (const route of ['/', '/writing/', '/now/', '/about/', '/reading/']) {
   assert.ok(locations.includes(new URL(route, origin).href), `sitemap missing ${route}`);
 }
 assert.ok(!locations.some((url) => /\/404(?:[/.]|$)/.test(url)), '404 excluded from sitemap');

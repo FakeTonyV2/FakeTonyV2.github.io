@@ -8,8 +8,8 @@ if (!entry || !entry.data.updated) throw new Error('The now page needs content a
 const { Content } = await render(entry);
 ---
 <Base title="Now" description={entry.data.description}>
-  <PageHeader title={entry.data.title} eyebrow="A snapshot of right now">
-    <p class="meta now-date">Last updated <time datetime={entry.data.updated.toISOString().slice(0, 10)}>{formatDate(entry.data.updated)}</time></p>
+  <PageHeader title={entry.data.title}>
+    <p class="meta now-date">Last updated: <time datetime={entry.data.updated.toISOString().slice(0, 10)}>{formatDate(entry.data.updated)}</time></p>
   </PageHeader>
   <div class="prose now-content"><Content /></div>
 </Base>

@@ -19,7 +19,7 @@ I’m particularly curious about how workloads should be scheduled across increa
 
 I’m pursuing Computer Science with a minor in **Microelectronics & Semiconductors**, focused on the microelectronics track. I expect to graduate in 2028 and am considering graduate study in computer engineering or computer science, particularly systems, architecture, and machine learning.
 
-Right now, I’m leading [Heterogeneous LLM Inference](/work/heterogeneous-llm-inference/) at ML@Purdue and building computer-vision infrastructure with [Purdue ROV](/work/purdue-rov-cv-runtime/).
+Right now, I’m leading **Heterogeneous LLM Inference** at ML@Purdue and building computer-vision infrastructure with **Purdue ROV**.
 
 Before returning to Purdue this semester, I worked as a software engineering intern with **Georgia Tech Research Institute’s Applied Systems Lab**. My work focused on performance testing, programming environments, and developer tooling: making it easier to build, test, and compare software across deployment configurations.
 

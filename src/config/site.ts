@@ -13,10 +13,9 @@ export const site = {
 
 export const navigation = [
   { label: 'Home', href: '/' },
-  { label: 'Work', href: '/work/' },
   { label: 'Writing', href: '/writing/' },
   { label: 'Now', href: '/now/' },
-  { label: 'About', href: '/about/' },
+  { label: 'Reading', href: '/reading/' },
 ];
 
 export const contacts = [

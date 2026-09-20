@@ -8,10 +8,9 @@ if (!entry) throw new Error('Missing about content.');
 const { Content } = await render(entry);
 ---
 <Base title="About" description={entry.data.description}>
-  <PageHeader title={entry.data.title} eyebrow="The person behind the notebook" />
+  <PageHeader title={entry.data.title} />
   <div class="prose"><Content /></div>
   <section class="contact-section" aria-labelledby="about-contact"><h2 id="about-contact">Get in touch</h2>
-    <p>For systems, software, or something I haven’t thought about yet.</p>
-    <ul class="contact-links">{contacts.map(({ label, href }) => <li><a href={href}>{label} ↗</a></li>)}</ul>
+    <ul class="contact-links">{contacts.map(({ label, href }) => <li><a href={href}>{label}</a></li>)}</ul>
   </section>
 </Base>

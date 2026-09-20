@@ -20,8 +20,8 @@ const path = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101216" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#f4f3ef" />
+    <meta name="color-scheme" content="light" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={site.name} />
@@ -50,23 +50,22 @@ const path = Astro.url.pathname;
     <a class="skip-link" href="#main">Skip to content</a>
     <div class="site-shell">
       <header class="site-header">
-        <a class="wordmark" href="/" aria-label="Fiyin — home">f<span aria-hidden="true">.</span></a>
         <nav aria-label="Main navigation">
-          {navigation.map(({ label, href }) => <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>)}
+          {navigation.map(({ label, href }, index) => <>
+            {index > 0 && <span aria-hidden="true">/</span>}
+            <a href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a>
+          </>)}
         </nav>
       </header>
       <main id="main" tabindex="-1"><slot /></main>
       <footer class="site-footer">
-        <div class="footer-top">
-          <p class="footer-signature">A corner of the internet.<br /><span>Always a work in progress.</span></p>
-          <a class="back-top" href="#main">Back to top <span aria-hidden="true">↑</span></a>
-        </div>
         <nav aria-label="Elsewhere">
-          <a href="/reading/">Reading</a>
-          <a href="/rss.xml">RSS</a>
-          {contacts.map(({ label, href }) => <a href={href}>{label}</a>)}
+          {contacts.map(({ label, href }, index) => <>
+            {index > 0 && <span aria-hidden="true">/</span>}
+            <a href={href}>{label}</a>
+          </>)}
+          <span aria-hidden="true">/</span><a href="/rss.xml">RSS</a>
         </nav>
-        <p class="colophon">© {site.updated.slice(0, 4)} {site.name}</p>
       </footer>
     </div>
   </body>

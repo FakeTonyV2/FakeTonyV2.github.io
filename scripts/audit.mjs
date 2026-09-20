@@ -4,7 +4,7 @@ import lighthouse from 'lighthouse';
 import { startPreview } from './preview.mjs';
 
 const routes = process.argv.slice(2);
-if (!routes.length) routes.push('/', '/now/', '/work/purdue-rov-cv-runtime/');
+if (!routes.length) routes.push('/', '/now/', '/writing/');
 const preview = await startPreview(4323);
 let browser;
 await mkdir('tmp/qa', { recursive: true });

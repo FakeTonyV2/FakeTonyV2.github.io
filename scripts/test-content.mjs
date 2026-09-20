@@ -25,7 +25,7 @@ const body = [
 ].join('\n');
 try {
   await writeFile(files[0], header('QA older article', '2026-09-18') + body);
-  await writeFile(files[1], header('QA newer article', '2026-09-19', 'updated: 2026-09-19\nrelatedWork: [heterogeneous-llm-inference]\nrelatedWriting: [qa-older, qa-secret-draft]\n') +
+  await writeFile(files[1], header('QA newer article', '2026-09-19', 'updated: 2026-09-19\nrelatedWriting: [qa-older, qa-secret-draft]\n') +
     'import Figure from "../../components/Figure.astro";\nimport cover from "../../../public/social.png";\n\n' + body + '\n<Figure src={cover} alt="Typography on a dark notebook cover" caption="An MDX figure fixture." />\n\n<div>MDX component content works.</div>\n');
   await writeFile(files[2], '---\ntitle: SECRET DRAFT TITLE\ndescription: Must never ship.\ntype: research-note\ndraft: true\n---\n\nSecret draft body.\n');
   build();
@@ -39,7 +39,7 @@ try {
   assert.ok(newer('.table-scroll table').length, 'scrollable table');
   assert.ok(newer('figure img[alt][width][height][srcset]').length, 'responsive MDX figure');
   assert.match(newer('main').text(), /MDX component content works/);
-  assert.ok(newer('.related a[href="/work/heterogeneous-llm-inference/"]').length, 'related project');
+  assert.ok(newer('.related a[href="/writing/qa-older/"]').length, 'related article');
   assert.ok(newer('.article-pagination a[href="/writing/qa-older/"]').length, 'older navigation');
   assert.ok(!newer('a[href*="qa-secret-draft"]').length, 'draft hidden from related links');
   const older = load(await readFile('dist/writing/qa-older/index.html', 'utf8'));
@@ -54,8 +54,8 @@ try {
   }
   assert.equal(await access('dist/writing/qa-secret-draft/index.html').then(() => true).catch(() => false), false);
   if (process.argv.includes('--browser')) command(['scripts/check-browser.mjs', '--fixture']);
-  await writeFile(files[0], header('QA broken reference', '2026-09-18', 'relatedWork: [does-not-exist]\n'));
-  assert.match(command(['node_modules/astro/bin/astro.mjs', 'build'], false), /unresolved related work entry/);
+  await writeFile(files[0], header('QA broken reference', '2026-09-18', 'relatedWriting: [does-not-exist]\n'));
+  assert.match(command(['node_modules/astro/bin/astro.mjs', 'build'], false), /unresolved related writing entry/);
   await writeFile(files[0], '---\ntitle: Missing date\ndescription: Rejected.\ntype: essay\ndraft: false\n---\n');
   assert.match(command(['node_modules/astro/bin/astro.mjs', 'build'], false), /published date/);
   console.log('Content checks passed: Markdown/MDX rendering, ordering, references, RSS, metadata validation, and draft exclusion.');

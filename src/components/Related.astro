@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { relatedContent } from '../lib/content';
-interface Props { entry: CollectionEntry<'work'> | CollectionEntry<'writing'>; }
+interface Props { entry: CollectionEntry<'writing'>; }
 const items = await relatedContent(Astro.props.entry);
 ---
 {items.length > 0 && <aside class="related" aria-labelledby="related-heading">

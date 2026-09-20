@@ -7,6 +7,6 @@ if (!entry) throw new Error('Missing reading content.');
 const { Content } = await render(entry);
 ---
 <Base title="Reading" description={entry.data.description}>
-  <PageHeader title={entry.data.title} eyebrow="On the bookshelf" description="Technical books, old ideas, and things that send me down a rabbit hole." />
+  <PageHeader title={entry.data.title} />
   <div class="prose reading-content"><Content /></div>
 </Base>

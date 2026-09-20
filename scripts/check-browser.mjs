@@ -6,8 +6,7 @@ import { startPreview } from './preview.mjs';
 
 const fixture = process.argv.includes('--fixture');
 const routes = fixture ? ['/writing/qa-newer/', '/writing/qa-older/'] : [
-  '/', '/work/', '/work/heterogeneous-llm-inference/', '/work/purdue-rov-cv-runtime/',
-  '/work/tsa-passenger-forecasting/', '/writing/', '/now/', '/about/', '/reading/', '/404.html',
+  '/', '/writing/', '/now/', '/about/', '/reading/', '/404.html',
 ];
 const preview = await startPreview();
 let browser;
@@ -48,7 +47,7 @@ try {
     assert.equal(await page.locator('h1').textContent(), '/now');
     const nowDate = await page.locator('.now-date time').getAttribute('datetime');
     const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(nowDate));
-    assert.equal(await page.locator('.now-date').textContent(), `Last updated ${formattedDate}`);
+    assert.equal(await page.locator('.now-date').textContent(), `Last updated: ${formattedDate}`);
     for (const route of ['/', '/writing/']) {
       await page.goto(preview.url + route);
       if (await page.locator('.empty-state').count()) {
@@ -57,7 +56,7 @@ try {
     }
     const missing = await page.goto(preview.url + '/a-coordinate-that-does-not-exist/');
     assert.equal(missing.status(), 404);
-    assert.match(await page.locator('h1').textContent(), /This coordinate/);
+    assert.equal(await page.locator('h1').textContent(), '404');
   }
   assert.deepEqual(errors, [], 'no browser exceptions');
   console.log(`Browser checks passed: ${routes.length} routes at 360, 768, and 1440px; axe, keyboard navigation, image loading, and zoom reflow.`);

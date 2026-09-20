@@ -4,7 +4,6 @@ description: A one-sentence thesis.
 type: research-note
 draft: true
 tags: []
-relatedWork: []
 relatedWriting: []
 ---
 

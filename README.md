@@ -27,34 +27,25 @@ npm run preview
 ```text
 .github/workflows/deploy.yml   PR checks and GitHub Pages deployment
 astro.config.mjs              Static output, MDX, sitemap, Markdown pipeline
-public/                      Résumé, favicon, original mecha SVG, social image
+public/                      Résumé, favicon, and social image
 scripts/                     Output, content, and browser verification
 src/
-  components/                Shared lists, page headers, figures, related links
+  components/                Writing lists, page headers, figures, related links
   config/site.ts             Identity, contacts, origin, manual homepage date
   content/
-    pages/                   Now, About, and Reading Markdown
-    work/                    Three initial project overviews
+    pages/                   Home, Now, About, and Reading Markdown
     writing/                 Articles; initially empty
   content.config.ts          Typed frontmatter schemas
   layouts/Base.astro         HTML shell, navigation, footer, social/SEO metadata
   lib/                       Content queries and accessible Markdown processing
   pages/                     Static routes, RSS, and robots.txt
   styles/global.css          Design tokens, layouts, typography, responsive styles
-templates/                   Unpublished article and project starting points
+templates/                   Unpublished article starting point
 ```
 
-Astro builds every route to static HTML. Content is read at build time, validated, and rendered through shared layouts. Project and article filenames determine stable URLs. Shared queries sort featured projects first, sort writing newest first, verify related references, and exclude drafts everywhere. Equal-priority entries sort alphabetically for deterministic output.
+Astro builds every route to static HTML. Content is read at build time, validated, and rendered through shared layouts. Article filenames determine stable URLs. Shared queries sort writing newest first, verify related references, and exclude drafts everywhere. Equal-date entries sort alphabetically for deterministic output.
 
-The design uses local system fonts: Palatino/Georgia for headings, a system sans-serif for prose, and a system monospace for metadata. There are no font-network requests. CSS handles mobile navigation, readable line lengths, visible keyboard focus, reduced motion, and scrollable code/math/tables.
-
-## Adding projects
-
-Copy `templates/project.md` into `src/content/work/your-project.md`. Fill the text with verified facts. The URL becomes `/work/your-project/`.
-
-Required fields: `title`, `summary`, `status`. Optional fields: `startDate`, `endDate`, `featured`, `tags`, `github`, `external`, `cover`, `coverAlt`, `relatedWork`, `relatedWriting`. Dates use `YYYY-MM-DD`. Set `featured: true` to include the project on Home. There is no project ranking field.
-
-`cover` is a relative path to an image processed by Astro; `coverAlt` is required with a cover. Repository and external links render only when provided. Project pages publish immediately, so keep unfinished work outside the collection until ready.
+The visible design is intentionally plain: one warm, narrow reading column; system serif text; ordinary headings, paragraphs, lists, and underlined links. It follows the spirit of early personal homepages and keeps the supplied biography close to its original wording. There are no font-network requests or browser-side interface scripts. CSS handles mobile navigation, visible keyboard focus, and scrollable code, math, and tables.
 
 ## Adding writing
 
@@ -68,7 +59,6 @@ published: 2026-09-19
 type: architecture
 draft: false
 tags: [systems, inference]
-relatedWork: [heterogeneous-llm-inference]
 relatedWriting: []
 ```
 
@@ -98,9 +88,9 @@ Ordinary Markdown images also work. Local image files are processed by Astro; pr
 
 ## Updating Now and other copy
 
-Edit `src/content/pages/now.md`, including its explicit `updated` date. The initial content follows the September 19, 2026 snapshot. The homepage’s short Currently summary is deliberately independent; update it in `src/pages/index.astro` if the focus changes. Its manual update date is in `src/config/site.ts`.
+Edit `src/content/pages/now.md`, including its explicit `updated` date. The initial content follows the September 19, 2026 snapshot. The homepage biography and its own update date live in `src/content/pages/home.md`; this keeps the primary page easy to edit as plain Markdown and preserves the original prose.
 
-About and Reading are Markdown files beside Now. Finished and Recommended remain empty until actual entries are supplied. The Writing empty-state string and all identity/contact metadata live in `src/config/site.ts`.
+About and Reading are Markdown files beside Home and Now. Finished and Recommended remain empty until actual entries are supplied. The Writing empty-state string and all identity/contact metadata live in `src/config/site.ts`.
 
 Replace `public/resume.pdf` to update the résumé without breaking links. The initial file is an unchanged copy of the supplied PDF. Contact links use the email, GitHub, and LinkedIn URLs embedded in that résumé. Its phone number is not separately reproduced in site copy.
 
@@ -136,7 +126,7 @@ npm run test:browser
 
 On a clean Linux machine, browser system libraries may also be needed (`npx playwright install --with-deps chromium`). Browser checks start and stop a local production preview, inspect all pages at 360/768/1440px, run axe, verify the skip link, check loaded images and overflow, and check 200% equivalent zoom reflow. Screenshots are written to ignored `tmp/qa/`. Content tests with `--browser` also inspect article fixtures before cleanup.
 
-Run `npm run audit` for mobile Lighthouse reports on Home, Now, and a project page, or `npm run audit -- /writing/your-slug/` to audit an article. Reports are saved in ignored `tmp/qa/`. The audit starts and stops its own production preview. There is no analytics or monitoring service attached.
+Run `npm run audit` for mobile Lighthouse reports on Home, Now, and Writing, or `npm run audit -- /writing/your-slug/` to audit an article. Reports are saved in ignored `tmp/qa/`. The audit starts and stops its own production preview. There is no analytics or monitoring service attached.
 
 ## GitHub Pages deployment
 
@@ -159,10 +149,9 @@ No CNAME or custom-domain activation ships initially. All absolute URLs derive f
 
 ## Remaining content TODOs
 
-- Supply verified public repository URLs for the three projects.
 - Write the first articles, architecture notes, and experiment results; no sample articles are published.
 - Record the exact TSA evaluation period before expanding its results section.
 - Add finished books and recommendations as desired.
 - Activate GitHub Pages when ready to publish; configure `fiyin.dev` later.
 
-Potential future improvements: static Mermaid rendering when diagrams justify it, a searchable archive when enough writing exists, and additional project case studies grounded in repository documentation. Keep the initial site small until those needs arise.
+Potential future improvements: static Mermaid rendering when diagrams justify it and a searchable archive when enough writing exists. Keep the initial site small until those needs arise.
