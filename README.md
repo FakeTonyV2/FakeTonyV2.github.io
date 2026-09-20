@@ -45,7 +45,7 @@ templates/                   Unpublished article starting point
 
 Astro builds every route to static HTML. Content is read at build time, validated, and rendered through shared layouts. Article filenames determine stable URLs. Shared queries sort writing newest first, verify related references, and exclude drafts everywhere. Equal-date entries sort alphabetically for deterministic output.
 
-The visible design is intentionally plain: one warm, narrow reading column; system serif text; ordinary headings, paragraphs, lists, and underlined links. It follows the spirit of early personal homepages and keeps the supplied biography close to its original wording. There are no font-network requests or browser-side interface scripts. CSS handles mobile navigation, visible keyboard focus, and scrollable code, math, and tables.
+The visible design is intentionally plain: one narrow reading column on a black background; warm-white system serif text; ordinary headings, paragraphs, lists, and underlined links. It follows the spirit of early personal homepages and keeps the supplied biography close to its original wording. There are no font-network requests or browser-side interface scripts. CSS handles mobile navigation, visible keyboard focus, and scrollable code, math, and tables.
 
 ## Adding writing
 
